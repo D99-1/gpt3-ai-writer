@@ -108,13 +108,12 @@ try{    const data = await response.json()
       </div>
       <div className="badge-container grow">
         <a
-          href="https://buildspace.so/builds/ai-writer"
+          href="https://dhyan99.is-a-good.dev"
           target="_blank"
           rel="noreferrer"
         >
           <div className="badge">
-            <Image src={buildspaceLogo} alt="buildspace logo" />
-            <p>Make your own</p>
+            <p>Developed By Dhyan99</p>
           </div>
         </a>
       </div>
