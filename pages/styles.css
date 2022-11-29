@@ -32,7 +32,7 @@ body {
     padding: 50px;
     position: relative;
     width: auto;
-    gap: 64px;
+    gap: 32px;
 }
 
 .header {    
@@ -64,18 +64,42 @@ body {
     font-weight: 400;
     line-height: 1.4em;
     color: rgba(255, 255, 255, 0.75);
+    
+}
+
+
+.header-subtitle h2 {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.4em;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: start;
 }
 
 .prompt-container {
     place-content: flex-end center;
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     flex: 0 0 auto;
     flex-flow: column nowrap;
-    gap: 16px;
+    gap: 0px;
     height: min-content;
     padding: 0px;
     width: min-content;
+}
+
+.prompt-label{
+    color: rgb(133, 133, 133);
+    margin-left: 20px;
+}
+
+.prompt-box-1{
+    height: 25px  !important;
+    flex-wrap: nowrap;
+    overflow-x: scroll !important;
+    overflow-y: hidden;
+    flex-flow: row !important;
 }
 
 .prompt-box {
@@ -173,7 +197,7 @@ textarea {
     place-content: flex-start;
     align-items: flex-start;
     background-color: rgb(255, 79, 18);
-    border-radius: 100px;
+    border-radius: 20px;
     display: flex;
     flex: 0 0 auto;
     flex-flow: column nowrap;
@@ -186,6 +210,7 @@ textarea {
     width: min-content;
     will-change: transform;
     cursor: pointer;
+
 }
 
 .generate {
@@ -346,6 +371,7 @@ textarea {
     .container {
         max-width: 500px;
         width: 100%;
+        overflow-x: hidden;
     }
 
     .prompt-container {
@@ -361,7 +387,7 @@ textarea {
 @media (max-width: 600px) {
     .container {
         max-width: 400px;
-        width: 100%;
+        width: 75%;
     }
 
     .header-title h1 {
@@ -383,6 +409,7 @@ textarea {
     .prompt-container {
         max-width: 400px;
         width: 100%;
+        margin-right: 15%;
     }
 
     .prompt-box {
@@ -413,3 +440,49 @@ textarea {
         transform: rotate(360deg);
     }
 }
+
+
+.material-textfield {
+    position: relative;  
+  }
+  
+  label {
+    position: absolute;
+    font-size: 1rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    color: gray;
+    padding: 0 0.3rem;
+    margin: 0 0.5rem;
+    transition: .1s ease-out;
+    transform-origin: left top;
+    pointer-events: none;
+  }
+  input {
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid gray;
+    border-radius: 5px;  
+    padding: 1rem 0.7rem;
+    color: gray;
+    transition: 0.1s ease-out;
+  }
+  input:focus {
+    border-color: #6200EE;  
+  }
+  input:focus + label {
+    color: #6200EE;
+    top: 0;
+    transform: translateY(-50%) scale(.9);
+  }
+  input:not(:placeholder-shown) + label {
+    top: 0;
+    transform: translateY(-50%) scale(.9);
+  }
+
+  .linkStyle{
+    text-decoration:underline;
+    color: rgb(190, 190, 190);
+  }
