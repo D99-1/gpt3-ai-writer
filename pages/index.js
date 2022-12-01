@@ -15,42 +15,39 @@ const Home = () => {
     setUserInput1(event.target.value);
   };
 
-  const [userApiKey, setUserApiKey] = useState('');
 
-  useEffect(() => {
-    const key = localStorage.getItem("userApiKey")
-    if (key) {
-      setUserApiKey(key)
-    }
-  }, [])
-
-  const ApiKeyChange = (event) => {
-    setUserApiKey(event.target.value);
-    localStorage.setItem("userApiKey",event.target.value)
-  };
 
   const [apiOutput, setApiOutput] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
+  const [cooldown, setCooldown] = useState(false)
+
+  function millisToMinutesAndSeconds(millis) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + " minutes and "  + seconds + " seconds";
+  }
 
   const callGenerateEndpoint = async () => {
     setIsGenerating(true);
     
-    console.log("Calling OpenAI...")
+    console.log("Calling API...")
     
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userApiKey,userInput,userInput1 }),
+      body: JSON.stringify({ userInput,userInput1 }),
     })
-try{    const data = await response.json()
+const data = await response.json()
     const { output } = data;
-    console.log("OpenAI replied...", output.text)
+    if(output.text){
+    console.log("API replied...", output.text)
     
     setApiOutput(`${userInput1}${output.text}`);
-    }catch{
-      setApiOutput("Invalid Api Key")
+
+    }else{
+      setApiOutput("Cooldown Reached: Please wait "+millisToMinutesAndSeconds(output.msBeforeNext)+" before submitting your next request")
     }
     setIsGenerating(false);
   }
@@ -70,11 +67,7 @@ try{    const data = await response.json()
           </div>
        
         </div>
-        <div className='prompt-container'>
-        <p className='prompt-label'>Enter your <a className='linkStyle' target={"_blank"} href='https://elephas.app/blog/how-to-create-openai-api-keys-cl5c4f21d281431po7k8fgyol0'>OPENAI Api Key</a></p>
 
-          <input placeholder='pb-QP584Mx1Bst8JUUaUFdYT3BlbkFJF4ZHK3fh9Jv6nsjH' spellcheck="false" className='prompt-box prompt-box-1' value={userApiKey} onChange={ApiKeyChange}/>
-        </div>
         <div className="prompt-container">
         <p className='prompt-label'>What should the rap be about?</p>
           <textarea rows="1" placeholder="Drivin' around in my lambo" className="prompt-box" value={userInput} onChange={aboutUserTextChange}/>
@@ -89,7 +82,7 @@ try{    const data = await response.json()
     onClick={callGenerateEndpoint}
   >
     <div className="generate">
-    {isGenerating ? <span class="loader"></span> : <p>Generate</p>}
+    {isGenerating ? <span class="loader"></span> : <p id="generate">Generate</p>}
     </div>
   </a>
   </div>
